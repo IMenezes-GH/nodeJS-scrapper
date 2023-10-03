@@ -44,6 +44,8 @@ async function downloader(url){
         const dom = new jsdom.JSDOM(page);
         
         const outputPath = path.join(__dirname, "..", "pages");
+        if (!fs.existsSync(outputPath)) fs.mkdirSync(outputPath, {recursive: true});
+
         const title = dom.window.document.title.replace(/\ /g, '_').replace(/:/g, '-');
         
         await promises.writeFile(path.join(outputPath, title + ".html"), page);
@@ -63,6 +65,10 @@ async function scrapper(file_name, queries){
     if (queries === undefined || !Array.isArray(queries)) throw new Error('Queries is required and must be an array.');
 
     try {
+        const folder = path.join(__dirname, '..', 'data');
+
+        if (!fs.existsSync(folder)) fs.mkdirSync(folder, {recursive: true});
+        
         const file = await promises.readFile(path.join(__dirname, '..', 'pages', file_name));
         const dom = new jsdom.JSDOM(file);
 

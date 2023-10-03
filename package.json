@@ -4,6 +4,7 @@
   "description": "Scrappers",
   "type": "commonjs",
   "scripts": {
+    "start" : "node ./src/app.js",
     "download": "node ./src/downloader.js",
     "config": "rm ./config/config.json && echo '{\"crawltime\": 5000, \"requests\": [],\"orders\": [{\"pages\": [],\"queries\": []}]}' > ./config/config.json "
   },
