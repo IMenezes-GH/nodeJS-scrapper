@@ -14,6 +14,6 @@ The scrapper works by reading a .json file that the user edits at the ./config f
  ### To-do:
 
  - [x] Basic project implementation
- - [ ] Add the ability to output to csv
+ - [x] Add the ability to output to csv
  - [ ] Add a static HTML page for generating quick config.json files
  - [ ] Add routing/crawling

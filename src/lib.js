@@ -55,6 +55,15 @@ async function downloader(url){
     }
 }
 
+function cleanTextContent(htmlElement){
+    try {
+        const content = htmlElement.textContent.replace(/\t/g, '').replace(/\n/g, ' ') + '\n';
+        return content;
+    } catch (err){
+        return ''
+    }
+}
+
 /**
  *  Crawls through a webpage and scrappes for data based on passed queries
  * @param {string} file_name the name of a file inside a '../pages/' directory.
@@ -73,13 +82,17 @@ async function scrapper(file_name, queries){
         const dom = new jsdom.JSDOM(file);
 
         await promises.writeFile(path.join(__dirname, '..', 'data', file_name + '.txt'), ''); // Cleans file
+        const queriesArray = []
 
         for (let i = 0; i < queries.length; i++){
+
             const result = dom.window.document.querySelectorAll(queries[i]);
-            result.forEach((el) => {
-                const content = el.textContent.replace(/\t/g, '').replace(/\n/g, ' ') + '\n';
-                fs.appendFileSync(path.join(__dirname, '..', 'data', file_name + '.txt'), content);
-            })
+            queriesArray.push(result);
+        }
+
+        for (let i = 0; i < queriesArray[0].length; i++){
+            const line = queriesArray.reduce((acc, curr) => {return acc + curr[i].textContent + '\t'}, '')
+            fs.appendFileSync(path.join(__dirname, '..', 'data', file_name + '.csv'), line + '\n');
         }
 
     } catch (err){
