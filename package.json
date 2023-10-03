@@ -1,0 +1,16 @@
+{
+  "name": "scrappers",
+  "version": "1.0.0",
+  "description": "Scrappers",
+  "type": "commonjs",
+  "scripts": {
+    "download": "node ./src/downloader.js",
+    "config": "rm ./config/config.json && echo '{\"crawltime\": 5000, \"requests\": [],\"orders\": [{\"pages\": [],\"queries\": []}]}' > ./config/config.json "
+  },
+  "keywords": [],
+  "author": "IMenezes",
+  "license": "ISC",
+  "dependencies": {
+    "jsdom": "^22.1.0"
+  }
+}
